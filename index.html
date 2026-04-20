@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Billion-Dollar Standard | construction Reimagined</title>
+    <meta name="description" content="A premium construction command center demonstrating uncompromising operational excellence.">
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css?v=3">
+</head>
+<body>
+    
+    <!-- Hero Background Video -->
+    <div class="video-container">
+        <!-- We'll use script to handle the play-once logic -->
+        <video id="hero-video" class="hero-video" autoplay muted playsinline>
+            <source src="./project_video/final.mp4?v=4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="video-overlay"></div>
+    </div>
+
+    <!-- Spatial 3D Hero Content -->
+    <main class="spatial-hero">
+        <header class="header">
+            <div class="logo">KEYSTONE BUILDERS</div>
+            <a href="https://customer.keystonebuildersindia.com/" class="btn-secondary">ACTIVE PROJECT LOGIN</a>
+        </header>
+
+        <section class="hero-content">
+            <h1 class="hero-title" id="title-3d">
+                <span>CONSTRUCTION</span> 
+                <span class="accent">REIMAGINED.</span>
+            </h1>
+            
+            <div class="cta-container">
+                <button class="btn-primary" id="inquire-btn">INQUIRE ABOUT YOUR PROJECT</button>
+            </div>
+        </section>
+
+        <!-- The Pillars (Left-Aligned Narrative) -->
+        <section class="narrative-pillars">
+            <div class="left-nav">
+                <div class="nav-item active" data-target="pillar-1">I. OPERATIONAL EXCELLENCE</div>
+                <div class="nav-item" data-target="pillar-2">II. THE DIGITAL ADVANTAGE</div>
+                <div class="nav-item" data-target="pillar-3">III. FISCAL INTEGRITY</div>
+            </div>
+            
+            <div class="right-content">
+                <div id="pillar-1" class="pillar-content active">
+                    <h2>UNCOMPROMISING OPERATIONAL EXCELLENCE</h2>
+                    <ul>
+                        <li>Construction schedules treated as rigid structural elements, not flexible guidelines.</li>
+                        <li>Every phase is meticulously mapped across a micro-cadence of rapid delivery.</li>
+                        <li>Momentum is continuously maintained with absolute zero deviations from the critical path.</li>
+                    </ul>
+                </div>
+                <div id="pillar-2" class="pillar-content">
+                    <h2>TOTAL TRANSPARENCY & DIGITAL COMMAND</h2>
+                    <ul>
+                        <li>Projects exist in a perfect digital state before the first shovel ever hits the ground.</li>
+                        <li>Proprietary Command Center integrates real-time BIM architecture with onsite telemetry.</li>
+                        <li>Precise mapping predicts and eliminates bottlenecks before they manifest in physical reality.</li>
+                    </ul>
+                </div>
+                <div id="pillar-3" class="pillar-content">
+                    <h2>FINANCIAL & MATERIAL INTEGRITY</h2>
+                    <ul>
+                        <li>Uncompromising total transparency in advanced financial modeling.</li>
+                        <li>Sovereign-grade auditing protocols ensure every dollar is maximally utilized.</li>
+                        <li>Absolute structural permanence is achieved because integrity is our primary material.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        
+        <footer class="footer">
+            <div class="footer-links">
+                <a href="#">Security</a>
+                <a href="#">Privacy</a>
+                <a href="#">Terms</a>
+            </div>
+            
+            <div class="trust-badge">
+                <span class="badge-icon">✓</span> <span class="badge-text">VEO VERIFIED</span>
+            </div>
+            
+            <div class="copyright">
+                &copy; 2026 VEO INC. ALL RIGHTS RESERVED.
+            </div>
+        </footer>
+    </main>
+
+    <!-- Contact Modal -->
+    <div class="modal-overlay" id="contact-modal">
+        <div class="modal-content">
+            <button class="close-btn" id="close-modal">&times;</button>
+            <h2 class="modal-title">INQUIRE ABOUT YOUR PROJECT</h2>
+            <form id="contact-form" class="contact-form">
+                <div class="input-group">
+                    <input type="text" id="name" required placeholder=" ">
+                    <label for="name">Name</label>
+                </div>
+                <div class="input-group">
+                    <input type="email" id="email" required placeholder=" ">
+                    <label for="email">Email</label>
+                </div>
+                <div class="input-group">
+                    <input type="tel" id="phone" required placeholder=" ">
+                    <label for="phone">Phone</label>
+                </div>
+                <div class="input-group">
+                    <input type="text" id="location" required placeholder=" ">
+                    <label for="location">Location</label>
+                </div>
+                <div class="input-group">
+                    <textarea id="query" rows="4" required placeholder=" "></textarea>
+                    <label for="query">Tell us about your project</label>
+                </div>
+                <button type="submit" class="btn-primary form-submit">SUBMIT INQUIRY</button>
+            </form>
+            <div class="success-message" id="success-msg" style="display:none;">
+                <h3 class="accent">Thank you for your inquiry.</h3>
+                <p>A commanding officer will review your project parameters and reach out shortly.</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="./script.js"></script>
+</body>
+</html>

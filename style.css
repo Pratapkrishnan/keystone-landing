@@ -1,0 +1,371 @@
+:root {
+    --bg-dark: #050505;
+    --bg-card: #111111;
+    --accent: #FF5A00;
+    --text-main: #FFFFFF;
+    --text-dim: #888888;
+    --font-heading: 'Inter', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    /* Set back to transparent. The dark styling must go on the video-overlay instead so it doesn't hide the video entirely */
+    background-color: transparent;
+    color: var(--text-main);
+    font-family: var(--font-heading);
+    overflow-x: hidden;
+    line-height: 1.6;
+}
+
+.accent { color: var(--accent); }
+
+/* Video Background */
+.video-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -10;
+    overflow: hidden;
+}
+
+.hero-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 1s ease;
+}
+
+.video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Lowering opacity heavily so the video is vividly clear while maintaining contrast for the white text */
+    background: rgba(5, 5, 5, 0.4);
+    z-index: 1;
+}
+
+/* Spatial 3D Wrapper */
+.spatial-hero {
+    perspective: 1200px;
+    width: 100%;
+    /* Removed flex to prevent it from squishing the hero section when narrative-pillars renders below it */
+}
+
+/* Header */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem 4rem;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 100;
+}
+
+.logo {
+    font-size: 2.2rem;
+    font-weight: 900;
+    letter-spacing: 4px;
+    color: #FF2A00; /* Vivid premium Red/Orange */
+    text-transform: uppercase;
+}
+
+.btn-secondary {
+    color: var(--text-main);
+    text-decoration: none;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    padding: 0.8rem 1.5rem;
+    border: 1px solid var(--text-dim);
+    transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+/* Hero Section */
+.hero-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 100vh;
+    padding-top: 80px; /* Offset for the fixed header */
+    transform-style: preserve-3d;
+    transition: transform 0.1s ease-out;
+}
+
+.hero-title {
+    font-size: clamp(3rem, 8vw, 6rem);
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: -2px;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    text-shadow: 0 10px 30px rgba(0,0,0,0.8);
+    transform: translateZ(50px);
+}
+
+.hero-title span { display: block; }
+
+.hero-subtitle {
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 5px;
+    color: var(--text-dim);
+    margin-bottom: 3rem;
+    transform: translateZ(20px);
+}
+
+.btn-primary {
+    background: transparent;
+    color: var(--text-main);
+    border: 1px solid var(--accent);
+    padding: 1.2rem 2.5rem;
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    cursor: pointer;
+    box-shadow: inset 0 0 0 0 var(--accent);
+    transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    transform: translateZ(30px);
+}
+
+.btn-primary:hover {
+    box-shadow: inset 0 0 0 3px var(--accent);
+    background: rgba(255, 90, 0, 0.1);
+}
+
+/* The Pillars Section */
+.narrative-pillars {
+    background: rgba(0, 0, 0, 0.5); /* Light dark background mapped over it */
+    display: flex;
+    min-height: 100vh;
+    padding: 0;
+    position: relative;
+    z-index: 10;
+}
+
+.left-nav {
+    width: 40%;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 10%;
+    border-right: 1px solid rgba(255,255,255,0.05);
+}
+
+.nav-item {
+    padding: 1.5rem 0;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text-dim);
+    cursor: pointer;
+    transition: all 0.3s;
+    letter-spacing: 1px;
+}
+
+.nav-item.active {
+    color: var(--text-main);
+    border-right: 4px solid var(--accent);
+    transform: translateX(4px);
+}
+
+.right-content {
+    width: 60%;
+    padding: 10% 8% 20% 8%;
+}
+
+.pillar-content {
+    opacity: 0.1;
+    transform: translateY(50px);
+    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    margin-bottom: 30vh;
+}
+
+.pillar-content.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.pillar-content h2 {
+    font-size: 2.5rem;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+    letter-spacing: -1px;
+}
+
+.pillar-content p, .pillar-content ul {
+    font-size: 1.2rem;
+    color: #ccc;
+    font-weight: 300;
+}
+
+.pillar-content ul {
+    list-style: none; /* Custom bullet points */
+    padding-left: 0;
+}
+
+.pillar-content li {
+    margin-bottom: 1rem;
+    position: relative;
+    padding-left: 1.5rem;
+}
+
+.pillar-content li::before {
+    content: "■";
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-size: 0.8rem;
+    top: 5px;
+}
+
+/* Modal */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.9);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.modal-content {
+    background: var(--bg-card);
+    padding: 4rem;
+    width: 100%;
+    max-width: 600px;
+    position: relative;
+    transform: translateY(50px) scale(0.95);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    border-top: 2px solid var(--accent);
+}
+
+.modal-overlay.active .modal-content {
+    transform: translateY(0) scale(1);
+}
+
+.close-btn {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    background: none;
+    border: none;
+    color: var(--text-main);
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+.modal-title {
+    font-size: 1.8rem;
+    margin-bottom: 2rem;
+    letter-spacing: 1px;
+}
+
+.input-group {
+    position: relative;
+    margin-bottom: 2rem;
+}
+
+.input-group input, .input-group textarea {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid var(--text-dim);
+    color: white;
+    padding: 0.5rem 0;
+    font-size: 1rem;
+    font-family: inherit;
+}
+
+.input-group input:focus, .input-group textarea:focus {
+    outline: none;
+    border-bottom-color: var(--accent);
+}
+
+.input-group label {
+    position: absolute;
+    top: 0.5rem;
+    left: 0;
+    color: var(--text-dim);
+    transition: all 0.2s;
+    pointer-events: none;
+}
+
+/* Float label up when active or filled */
+.input-group input:focus ~ label,
+.input-group input:not(:placeholder-shown) ~ label,
+.input-group textarea:focus ~ label,
+.input-group textarea:not(:placeholder-shown) ~ label {
+    top: -1rem;
+    font-size: 0.8rem;
+    color: var(--accent);
+}
+
+/* Footer */
+.footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem 4rem;
+    background: var(--bg-card);
+    border-top: 1px solid rgba(255,255,255,0.05);
+    font-size: 0.8rem;
+    color: var(--text-dim);
+}
+
+.footer-links a {
+    color: var(--text-dim);
+    margin-right: 1.5rem;
+    text-decoration: none;
+}
+
+.footer-links a:hover { color: white; }
+
+.trust-badge {
+    color: var(--text-main);
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.badge-icon { color: var(--accent); }
+
+/* Responsive adjustments */
+@media(max-width: 768px) {
+    .narrative-pillars { flex-direction: column; }
+    .left-nav { width: 100%; height: auto; position: static; padding: 2rem; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .right-content { width: 100%; padding: 3rem 2rem; }
+    .footer { flex-direction: column; gap: 1rem; text-align: center; }
+}
