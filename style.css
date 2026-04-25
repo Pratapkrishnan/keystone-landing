@@ -72,12 +72,33 @@ body {
     z-index: 100;
 }
 
-.logo {
-    font-size: 2.2rem;
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    cursor: pointer;
+}
+.logo-icon {
+    width: 85px; 
+}
+.logo-text {
+    display: flex;
+    flex-direction: column;
+}
+.logo-title {
+    font-size: 2.8rem;
     font-weight: 900;
-    letter-spacing: 4px;
-    color: #FF2A00; /* Vivid premium Red/Orange */
-    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #FFFFFF;
+    line-height: 1.1;
+}
+.logo-sub {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #FF2A00;
+    text-align: center;
+    letter-spacing: 11px;
+    margin-top: 2px;
 }
 
 .btn-secondary {
@@ -365,7 +386,9 @@ body {
 /* Responsive adjustments */
 @media(max-width: 1024px) {
     .header { padding: 1.5rem 3rem; }
-    .logo { font-size: 1.8rem; letter-spacing: 2px; }
+    .logo-title { font-size: 2rem; letter-spacing: 2px; }
+    .logo-icon { width: 60px; }
+    .logo-sub { font-size: 0.75rem; letter-spacing: 7px; }
 }
 
 @media(max-width: 768px) {
@@ -376,7 +399,10 @@ body {
         background: rgba(5,5,5,0.85); /* Ensures readability when scrolling */
         backdrop-filter: blur(10px);
     }
-    .logo { font-size: 1.4rem; text-align: center; letter-spacing: 2px; }
+    .logo-container { flex-direction: column; gap: 8px; }
+    .logo-icon { width: 65px; }
+    .logo-title { font-size: 1.8rem; text-align: center; letter-spacing: 2px; }
+    .logo-sub { font-size: 0.7rem; letter-spacing: 4px; margin-top: 0; }
     .btn-secondary { font-size: 0.70rem; padding: 0.6rem 1rem; }
     
     .hero-content { padding-top: 140px; } /* Offset for stacked header */
