@@ -1,10 +1,11 @@
 :root {
-    --bg-dark: #050505;
-    --bg-card: #111111;
-    --accent: #FF5A00;
-    --text-main: #FFFFFF;
-    --text-dim: #888888;
-    --font-heading: 'Inter', sans-serif;
+    --bg-dark: #0A0A0A; /* Deep Matte Charcoal */
+    --bg-card: #141414; /* Slightly lighter charcoal */
+    --accent: #C5A059; /* Brushed Champagne Bronze */
+    --text-main: #FAFAFA; /* Architectural White */
+    --text-dim: #999999;
+    --font-heading: 'Playfair Display', serif;
+    --font-body: 'Inter', sans-serif;
 }
 
 * {
@@ -14,10 +15,9 @@
 }
 
 body {
-    /* Set back to transparent. The dark styling must go on the video-overlay instead so it doesn't hide the video entirely */
-    background-color: transparent;
+    background-color: var(--bg-dark);
     color: var(--text-main);
-    font-family: var(--font-heading);
+    font-family: var(--font-body);
     overflow-x: hidden;
     line-height: 1.6;
 }
@@ -86,16 +86,17 @@ body {
     flex-direction: column;
 }
 .logo-title {
+    font-family: var(--font-heading);
     font-size: 2.8rem;
-    font-weight: 900;
+    font-weight: 700;
     letter-spacing: 2px;
     color: #FFFFFF;
     line-height: 1.1;
 }
 .logo-sub {
     font-size: 0.95rem;
-    font-weight: 700;
-    color: #FF2A00;
+    font-weight: 600;
+    color: var(--accent);
     text-align: center;
     letter-spacing: 11px;
     margin-top: 2px;
@@ -131,13 +132,14 @@ body {
 }
 
 .hero-title {
-    font-size: clamp(3rem, 8vw, 6rem);
-    font-weight: 900;
+    font-family: var(--font-heading);
+    font-size: clamp(3.5rem, 8vw, 7rem);
+    font-weight: 700;
     line-height: 1;
-    letter-spacing: -2px;
-    margin-bottom: 1rem;
+    letter-spacing: -1px;
+    margin-bottom: 1.5rem;
     text-transform: uppercase;
-    text-shadow: 0 10px 30px rgba(0,0,0,0.8);
+    text-shadow: 0 10px 40px rgba(0,0,0,0.9);
     transform: translateZ(50px);
 }
 
@@ -156,20 +158,20 @@ body {
     background: transparent;
     color: var(--text-main);
     border: 1px solid var(--accent);
-    padding: 1.2rem 2.5rem;
-    font-family: var(--font-heading);
-    font-size: 1rem;
-    font-weight: 700;
-    letter-spacing: 2px;
+    padding: 1.2rem 2.8rem;
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 3px;
     cursor: pointer;
-    box-shadow: inset 0 0 0 0 var(--accent);
-    transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
     transform: translateZ(30px);
+    text-transform: uppercase;
 }
 
 .btn-primary:hover {
-    box-shadow: inset 0 0 0 3px var(--accent);
-    background: rgba(255, 90, 0, 0.1);
+    background: var(--accent);
+    color: var(--bg-dark);
 }
 
 /* The Pillars Section */
@@ -228,10 +230,12 @@ body {
 }
 
 .pillar-content h2 {
-    font-size: 2.5rem;
+    font-family: var(--font-heading);
+    font-size: 3rem;
+    font-weight: 600;
     color: var(--accent);
-    margin-bottom: 1.5rem;
-    letter-spacing: -1px;
+    margin-bottom: 2rem;
+    letter-spacing: 0px;
 }
 
 .pillar-content p, .pillar-content ul {
@@ -310,9 +314,11 @@ body {
 }
 
 .modal-title {
-    font-size: 1.8rem;
+    font-family: var(--font-heading);
+    font-size: 2.2rem;
+    font-weight: 600;
     margin-bottom: 2rem;
-    letter-spacing: 1px;
+    letter-spacing: 0px;
 }
 
 .input-group {

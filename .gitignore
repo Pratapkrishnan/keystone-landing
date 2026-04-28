@@ -6,3 +6,10 @@ project_video/final1111.mov
 project_video/final-old.mp4
 project_video/final-old-recent.mp4
 project_video/finalwatermark.mp4
+.augment/
+.claude/
+.kilocode/
+.qoder/
+.qwen/
+.roo/
+.trae/
