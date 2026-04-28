@@ -103,25 +103,41 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    contactForm.addEventListener('submit', (e) => {
+    contactForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         
-        // Simulating email trigger requested in the prompt
-        // Name, Email, Phone, Location, Query
+        const btn = document.querySelector('.form-submit');
+        const originalText = btn.innerHTML;
+        btn.innerHTML = 'Sending...';
+        btn.disabled = true;
+
         const formData = {
-            name: document.getElementById('name').value,
-            email: document.getElementById('email').value,
-            phone: document.getElementById('phone').value,
-            location: document.getElementById('location').value,
-            query: document.getElementById('query').value,
-            to: 'pratap.krishnan1@gmail.com'
+            Name: document.getElementById('name').value,
+            Email: document.getElementById('email').value,
+            Phone: document.getElementById('phone').value,
+            Location: document.getElementById('location').value,
+            Message: document.getElementById('query').value,
+            _subject: 'New Lead from Business Landing Page'
         };
         
-        console.log("Mock Email Dispatched:", formData);
-        
-        // Display success
-        contactForm.style.display = 'none';
-        successMsg.style.display = 'block';
+        try {
+            await fetch("https://formspree.io/f/xzdywpzg", {
+                method: "POST",
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            });
+
+            // Display success
+            contactForm.style.display = 'none';
+            successMsg.style.display = 'block';
+        } catch(err) {
+            alert("Error sending message. Please try again.");
+            btn.innerHTML = originalText;
+            btn.disabled = false;
+        }
     });
 
 });
