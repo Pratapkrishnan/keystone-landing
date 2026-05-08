@@ -191,6 +191,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function loadPortfolio() {
         if (!grid) return;
+        const section = document.getElementById('portfolio-section');
 
         try {
             // List all files in the portfolio bucket via Supabase REST API
@@ -217,15 +218,17 @@ document.addEventListener('DOMContentLoaded', () => {
                     caption: fileToCaption(f.name)
                 }));
 
+            // Hide section entirely if no media files exist
+            if (portfolioItems.length === 0) {
+                if (section) section.style.display = 'none';
+                return;
+            }
+
             renderPortfolioGrid();
         } catch (err) {
             console.warn('Portfolio load error:', err);
-            grid.innerHTML = `
-                <div style="grid-column: 1 / -1; text-align: center; padding: 60px 20px; color: #4b5563;">
-                    <div style="font-size: 2.5rem; margin-bottom: 12px;">🏗️</div>
-                    <div style="font-size: 1rem; font-weight: 600; color: #94a3b8; margin-bottom: 6px;">Portfolio Coming Soon</div>
-                    <div style="font-size: 0.85rem;">High-resolution project photos and construction timelapses</div>
-                </div>`;
+            // Hide the section on error — no ugly fallback
+            if (section) section.style.display = 'none';
         }
     }
 

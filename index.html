@@ -121,18 +121,11 @@
             </div>
         </section>
 
-        <!-- Structural Integrity Portfolio — Photo + Video Gallery -->
-        <section class="portfolio-carousel" id="portfolio-section" style="padding: 5rem 2rem; background: #000; display: block; clear: both; width: 100%; border-top: 1px solid rgba(255,255,255,0.04);">
+        <!-- Portfolio Gallery — Photo + Video from Supabase Storage -->
+        <section class="portfolio-carousel" id="portfolio-section" style="padding: 4rem 2rem; background: #000; display: block; clear: both; width: 100%; border-top: 1px solid rgba(255,255,255,0.04);">
             <div style="max-width: 1400px; margin: 0 auto;">
-                <h2 style="font-size: 2rem; margin-bottom: 0.5rem; letter-spacing: 2px; text-align: center;">STRUCTURAL INTEGRITY <span class="accent">PORTFOLIO</span></h2>
-                <p style="text-align: center; color: #6b7280; font-size: 0.9rem; margin-bottom: 2.5rem; letter-spacing: 0.5px;">Click to view • Videos auto-play on selection</p>
-                
                 <div id="portfolioGrid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px;">
-                    <!-- Populated by JS from PORTFOLIO_MEDIA config -->
-                    <div style="grid-column: 1 / -1; text-align: center; padding: 60px 20px; color: #4b5563;">
-                        <i style="font-size: 2rem; margin-bottom: 8px; display: block;">📁</i>
-                        Loading portfolio...
-                    </div>
+                    <!-- Populated dynamically from Supabase Storage -->
                 </div>
             </div>
         </section>
