@@ -189,27 +189,40 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentLbIndex = 0;
     let portfolioItems = []; // populated from Supabase
 
+    async function fetchPortfolioFiles() {
+        const res = await fetch(`${SUPABASE_URL}/storage/v1/object/list/${BUCKET_NAME}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'apikey': SUPABASE_ANON_KEY,
+                'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+            },
+            body: JSON.stringify({ prefix: '', limit: 100, offset: 0, sortBy: { column: 'name', order: 'asc' } })
+        });
+        if (!res.ok) throw new Error(`Storage API error: ${res.status}`);
+        return res.json();
+    }
+
     async function loadPortfolio() {
         if (!grid) return;
         const section = document.getElementById('portfolio-section');
+        const MAX_RETRIES = 3;
+        const RETRY_DELAY = 1500; // ms
 
         try {
-            // List all files in the portfolio bucket via Supabase REST API
-            const res = await fetch(`${SUPABASE_URL}/storage/v1/object/list/${BUCKET_NAME}`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'apikey': SUPABASE_ANON_KEY,
-                    'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
-                },
-                body: JSON.stringify({ prefix: '', limit: 100, offset: 0, sortBy: { column: 'name', order: 'asc' } })
-            });
+            let files = [];
 
-            if (!res.ok) throw new Error(`Storage API error: ${res.status}`);
-            const files = await res.json();
+            // Retry up to 3 times — Supabase storage can return empty on cold starts
+            for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
+                files = await fetchPortfolioFiles();
+                if (Array.isArray(files) && files.length > 0) break;
+                if (attempt < MAX_RETRIES) {
+                    await new Promise(r => setTimeout(r, RETRY_DELAY));
+                }
+            }
 
             // Filter to images and videos only
-            portfolioItems = files
+            portfolioItems = (files || [])
                 .filter(f => f.name && getFileType(f.name))
                 .map(f => ({
                     name: f.name,
@@ -218,7 +231,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     caption: fileToCaption(f.name)
                 }));
 
-            // Hide section entirely if no media files exist
+            // Hide section entirely if no media files exist after all retries
             if (portfolioItems.length === 0) {
                 if (section) section.style.display = 'none';
                 return;
@@ -227,7 +240,6 @@ document.addEventListener('DOMContentLoaded', () => {
             renderPortfolioGrid();
         } catch (err) {
             console.warn('Portfolio load error:', err);
-            // Hide the section on error — no ugly fallback
             if (section) section.style.display = 'none';
         }
     }
