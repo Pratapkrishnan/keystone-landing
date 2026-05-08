@@ -144,13 +144,6 @@
             </style>
         </section>
 
-        <!-- Portfolio Lightbox -->
-        <div id="portfolioLightbox" style="display:none; position:fixed; inset:0; z-index:10000; background:rgba(0,0,0,0.96); backdrop-filter:blur(24px); align-items:center; justify-content:center;">
-            <button id="lightboxClose" style="position:absolute; top:20px; right:24px; background:rgba(255,255,255,0.1); border:none; color:#fff; font-size:2rem; cursor:pointer; z-index:10001; width:48px; height:48px; display:flex; align-items:center; justify-content:center; border-radius:50%; transition:background 0.2s;">&times;</button>
-            <button id="lightboxPrev" style="position:absolute; left:20px; top:50%; transform:translateY(-50%); background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.1); color:#fff; font-size:1.8rem; cursor:pointer; width:52px; height:52px; border-radius:50%; display:flex; align-items:center; justify-content:center; transition:background 0.2s;">&#8249;</button>
-            <button id="lightboxNext" style="position:absolute; right:20px; top:50%; transform:translateY(-50%); background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.1); color:#fff; font-size:1.8rem; cursor:pointer; width:52px; height:52px; border-radius:50%; display:flex; align-items:center; justify-content:center; transition:background 0.2s;">&#8250;</button>
-            <div id="lightboxContent" style="max-width:90vw; max-height:85vh; display:flex; align-items:center; justify-content:center;"></div>
-        </div>
         
         <footer class="footer">
             <div class="footer-links">
@@ -204,6 +197,14 @@
         </div>
     </div>
 
-    <script src="./script.js?v=5"></script>
+    <!-- Portfolio Lightbox — must be direct child of body for z-index to work -->
+    <div id="portfolioLightbox" style="display:none; position:fixed; inset:0; z-index:10000; background:rgba(0,0,0,0.96); backdrop-filter:blur(24px); align-items:center; justify-content:center;">
+        <button id="lightboxClose" style="position:absolute; top:20px; right:24px; background:rgba(255,255,255,0.1); border:none; color:#fff; font-size:2rem; cursor:pointer; z-index:10001; width:48px; height:48px; display:flex; align-items:center; justify-content:center; border-radius:50%; transition:background 0.2s;">&times;</button>
+        <button id="lightboxPrev" style="position:absolute; left:20px; top:50%; transform:translateY(-50%); background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.1); color:#fff; font-size:1.8rem; cursor:pointer; width:52px; height:52px; border-radius:50%; display:flex; align-items:center; justify-content:center; transition:background 0.2s;">&#8249;</button>
+        <button id="lightboxNext" style="position:absolute; right:20px; top:50%; transform:translateY(-50%); background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.1); color:#fff; font-size:1.8rem; cursor:pointer; width:52px; height:52px; border-radius:50%; display:flex; align-items:center; justify-content:center; transition:background 0.2s;">&#8250;</button>
+        <div id="lightboxContent" style="max-width:90vw; max-height:85vh; display:flex; align-items:center; justify-content:center;"></div>
+    </div>
+
+    <script src="./script.js?v=6"></script>
 </body>
 </html>
