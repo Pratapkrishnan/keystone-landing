@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services | Keystone Builders</title>
+    <meta name="description" content="Four guarantees no other builder offers — Bank Guarantee, Live Dashboard, Structural Insurance, Fixed Spec Book.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css?v=6">
+    <style>
+        .services-page {
+            padding: 140px 0 0;
+            background: var(--bg-dark);
+            min-height: 100vh;
+        }
+
+        /* Hero */
+        .services-hero {
+            text-align: center;
+            padding: 4rem 2rem 5rem;
+        }
+        .services-hero h1 {
+            font-family: var(--font-heading);
+            font-size: clamp(3rem, 6vw, 5rem);
+            font-weight: 700;
+            letter-spacing: 4px;
+            margin-bottom: 1.2rem;
+        }
+        .services-hero .gold-line {
+            width: 60px;
+            height: 3px;
+            background: var(--accent);
+            margin: 0 auto 1.5rem;
+        }
+        .services-hero p {
+            color: var(--text-dim);
+            font-size: 1.05rem;
+            letter-spacing: 3px;
+            font-weight: 400;
+        }
+
+        /* Feature Sections */
+        .feature-section {
+            max-width: 1100px;
+            margin: 0 auto 3rem;
+            padding: 0 4%;
+        }
+        .feature-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(255,255,255,0.04);
+            border-radius: 16px;
+            padding: 4rem 5rem;
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            align-items: center;
+            gap: 3rem;
+            position: relative;
+            overflow: hidden;
+            transition: border-color 0.4s ease;
+        }
+        .feature-card:hover {
+            border-color: rgba(197,160,89,0.15);
+        }
+        .feature-card.reversed {
+            direction: rtl;
+        }
+        .feature-card.reversed > * {
+            direction: ltr;
+        }
+        .feature-number {
+            font-family: var(--font-heading);
+            font-size: clamp(4rem, 8vw, 6rem);
+            font-weight: 700;
+            color: rgba(197,160,89,0.2);
+            line-height: 1;
+        }
+        .feature-text h2 {
+            font-family: var(--font-heading);
+            font-size: clamp(1.6rem, 3vw, 2.4rem);
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
+        }
+        .feature-text p {
+            color: #ccc;
+            font-size: 1.05rem;
+            line-height: 1.8;
+            font-weight: 300;
+            max-width: 520px;
+        }
+        .feature-icon {
+            opacity: 0.12;
+            color: var(--accent);
+        }
+        .feature-icon svg {
+            width: 80px;
+            height: 80px;
+        }
+
+        /* CTA Section */
+        .services-cta {
+            text-align: center;
+            padding: 4rem 2rem 6rem;
+        }
+        .services-cta a {
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .services-page { padding-top: 160px; }
+            .feature-card {
+                grid-template-columns: 1fr;
+                padding: 2.5rem 2rem;
+                text-align: center;
+                gap: 1.5rem;
+            }
+            .feature-card.reversed { direction: ltr; }
+            .feature-number { font-size: 3.5rem; }
+            .feature-icon { display: none; }
+            .feature-text p { max-width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <main class="spatial-hero">
+        <header class="header">
+            <a href="./" style="text-decoration: none;">
+                <div class="logo-container">
+                    <svg class="logo-icon" viewBox="0 0 100 60" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M50 10 L90 45 L70 45 L50 25 L30 45 L10 45 Z" fill="#C5A059"/>
+                        <polygon points="50,32 65,45 35,45" fill="#C5A059"/>
+                    </svg>
+                    <div class="logo-text">
+                        <div class="logo-title">KEYSTONE</div>
+                        <div class="logo-sub">&mdash; BUILDERS &mdash;</div>
+                    </div>
+                </div>
+            </a>
+            <nav class="header-nav">
+                <a href="./services.html" class="nav-link" style="color: var(--accent);">SERVICES</a>
+                <a href="./gallery.html" class="nav-link">GALLERY</a>
+                <a href="./contact.html" class="nav-link">CONTACT US</a>
+            </nav>
+            <a href="https://customer.keystonebuildersindia.com/" class="btn-secondary">MY PROJECT DASHBOARD</a>
+        </header>
+    </main>
+
+    <section class="services-page">
+
+        <!-- Hero -->
+        <div class="services-hero">
+            <h1>BUILT DIFFERENT</h1>
+            <div class="gold-line"></div>
+            <p>Four guarantees. Zero compromises.</p>
+        </div>
+
+        <!-- 01 — Bank Guarantee -->
+        <div class="feature-section">
+            <div class="feature-card">
+                <div class="feature-number">01</div>
+                <div class="feature-text">
+                    <h2>BANK GUARANTEE</h2>
+                    <p>We put skin in the game. A performance bank guarantee is issued before breaking ground. If we don't deliver, the bank pays you. Not a promise — a legal financial instrument.</p>
+                </div>
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 2.18l7 3.12v4.7c0 4.83-3.13 9.37-7 10.54-3.87-1.17-7-5.71-7-10.54V6.3l7-3.12zM10 12l-2-2-1.41 1.41L10 14.83l7-7L15.59 6.42 10 12z"/></svg>
+                </div>
+            </div>
+        </div>
+
+        <!-- 02 — Live Project Dashboard -->
+        <div class="feature-section">
+            <div class="feature-card reversed">
+                <div class="feature-number">02</div>
+                <div class="feature-text">
+                    <h2>LIVE PROJECT DASHBOARD</h2>
+                    <p>Daily site photos. 360° walkthroughs. BOQ tracking. Milestone status. Your project — accessible from Dubai, London, or your living room.</p>
+                </div>
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M21 2H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h7v2H8v2h8v-2h-2v-2h7c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H3V4h18v12z"/></svg>
+                </div>
+            </div>
+        </div>
+
+        <!-- 03 — Structural Insurance -->
+        <div class="feature-section">
+            <div class="feature-card">
+                <div class="feature-number">03</div>
+                <div class="feature-text">
+                    <h2>STRUCTURAL INSURANCE</h2>
+                    <p>A comprehensive structural insurance policy — in your name. Cracks, leaks, or settlement? The insurer handles it. Not arguments.</p>
+                </div>
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                </div>
+            </div>
+        </div>
+
+        <!-- 04 — Fixed Spec Book -->
+        <div class="feature-section">
+            <div class="feature-card reversed">
+                <div class="feature-number">04</div>
+                <div class="feature-text">
+                    <h2>FIXED SPEC BOOK</h2>
+                    <p>Every brand, ISI code, unit rate, and finish — documented and signed on Day 0. Nothing is left to interpretation.</p>
+                </div>
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zM6 20V4h7v5h5v11H6zm2-6h8v2H8v-2zm0-4h8v2H8v-2z"/></svg>
+                </div>
+            </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="services-cta">
+            <a href="./#inquiry-form" class="btn-primary" style="transform:none;">BUILD WITH KEYSTONE</a>
+        </div>
+
+    </section>
+
+    <footer class="footer">
+        <div class="footer-links">
+            <a href="#security-policy">Security</a>
+            <a href="#privacy-policy">Privacy</a>
+            <a href="#terms-of-service">Terms</a>
+        </div>
+        <div class="trust-badge">
+            <span class="badge-icon">✓</span> <span class="badge-text">KEYSTONE VERIFIED</span>
+        </div>
+        <div class="copyright">
+            &copy; 2026 KEYSTONE BUILDERS INC. ALL RIGHTS RESERVED.
+        </div>
+    </footer>
+</body>
+</html>
