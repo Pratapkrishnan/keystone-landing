@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery | Keystone Builders</title>
+    <meta name="description" content="Explore Keystone Builders' project portfolio — construction photos and video walkthroughs.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css?v=5">
+    <style>
+        .gallery-page { 
+            padding: 120px 4% 4rem; 
+            min-height: 100vh; 
+            background: var(--bg-dark); 
+        }
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 14px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .gallery-card {
+            position: relative;
+            aspect-ratio: 3/2;
+            border-radius: 10px;
+            overflow: hidden;
+            cursor: pointer;
+            background: #111;
+            border: 1px solid rgba(255,255,255,0.06);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .gallery-card:hover {
+            transform: scale(1.03);
+            box-shadow: 0 12px 40px rgba(197,160,89,0.15);
+        }
+        .gallery-card img, .gallery-card video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            pointer-events: none;
+            transition: transform 0.4s ease;
+        }
+        .gallery-card:hover img { transform: scale(1.06); }
+        .gallery-card .play-badge {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0,0,0,0.3);
+        }
+        .gallery-card .play-badge div {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: rgba(197,160,89,0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+        }
+        .gallery-empty {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 80px 20px;
+            color: #4b5563;
+        }
+        @media(max-width: 768px) {
+            .gallery-page { padding: 160px 3% 3rem; }
+            .gallery-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 8px; }
+        }
+    </style>
+</head>
+<body>
+    <main class="spatial-hero">
+        <header class="header">
+            <a href="./" style="text-decoration: none;">
+                <div class="logo-container">
+                    <svg class="logo-icon" viewBox="0 0 100 60" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M50 10 L90 45 L70 45 L50 25 L30 45 L10 45 Z" fill="#C5A059"/>
+                        <polygon points="50,32 65,45 35,45" fill="#C5A059"/>
+                    </svg>
+                    <div class="logo-text">
+                        <div class="logo-title">KEYSTONE</div>
+                        <div class="logo-sub">&mdash; BUILDERS &mdash;</div>
+                    </div>
+                </div>
+            </a>
+            <nav class="header-nav">
+                <a href="./gallery.html" class="nav-link" style="color: var(--accent);">GALLERY</a>
+                <a href="./contact.html" class="nav-link">CONTACT US</a>
+            </nav>
+            <a href="https://customer.keystonebuildersindia.com/" class="btn-secondary">MY PROJECT DASHBOARD</a>
+        </header>
+    </main>
+
+    <section class="gallery-page">
+        <div class="gallery-grid" id="galleryGrid">
+            <!-- Populated from Supabase Storage -->
+        </div>
+    </section>
+
+    <!-- Lightbox -->
+    <div id="portfolioLightbox" style="display:none; position:fixed; inset:0; z-index:10000; background:rgba(0,0,0,0.96); backdrop-filter:blur(24px); align-items:center; justify-content:center;">
+        <button id="lightboxClose" style="position:absolute; top:20px; right:24px; background:rgba(255,255,255,0.1); border:none; color:#fff; font-size:2rem; cursor:pointer; z-index:10001; width:48px; height:48px; display:flex; align-items:center; justify-content:center; border-radius:50%; transition:background 0.2s;">&times;</button>
+        <button id="lightboxPrev" style="position:absolute; left:20px; top:50%; transform:translateY(-50%); background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.1); color:#fff; font-size:1.8rem; cursor:pointer; width:52px; height:52px; border-radius:50%; display:flex; align-items:center; justify-content:center; transition:background 0.2s;">&#8249;</button>
+        <button id="lightboxNext" style="position:absolute; right:20px; top:50%; transform:translateY(-50%); background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.1); color:#fff; font-size:1.8rem; cursor:pointer; width:52px; height:52px; border-radius:50%; display:flex; align-items:center; justify-content:center; transition:background 0.2s;">&#8250;</button>
+        <div id="lightboxContent" style="max-width:90vw; max-height:85vh; display:flex; align-items:center; justify-content:center;"></div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-links">
+            <a href="#security-policy">Security</a>
+            <a href="#privacy-policy">Privacy</a>
+            <a href="#terms-of-service">Terms</a>
+        </div>
+        <div class="trust-badge">
+            <span class="badge-icon">✓</span> <span class="badge-text">KEYSTONE VERIFIED</span>
+        </div>
+        <div class="copyright">
+            &copy; 2026 KEYSTONE BUILDERS INC. ALL RIGHTS RESERVED.
+        </div>
+    </footer>
+
+    <script>
+    (function() {
+        const SUPABASE_URL = 'https://iojmldujezovnxlxpjsh.supabase.co';
+        const SUPABASE_ANON_KEY = 'sb_publishable_Y7IU2Bh0YnHmodEWFe5mGQ_-VdRbUMg';
+        const BUCKET_NAME = 'portfolio';
+
+        const IMAGE_EXTS = ['.jpg', '.jpeg', '.png', '.webp', '.avif'];
+        const VIDEO_EXTS = ['.mp4', '.mov', '.webm'];
+
+        const storageUrl = (name) => `${SUPABASE_URL}/storage/v1/object/public/${BUCKET_NAME}/${encodeURIComponent(name)}`;
+
+        function getFileType(name) {
+            const ext = name.substring(name.lastIndexOf('.')).toLowerCase();
+            if (VIDEO_EXTS.includes(ext)) return 'video';
+            if (IMAGE_EXTS.includes(ext)) return 'photo';
+            return null;
+        }
+
+        const grid = document.getElementById('galleryGrid');
+        const lightbox = document.getElementById('portfolioLightbox');
+        const lbContent = document.getElementById('lightboxContent');
+        let currentIdx = 0;
+        let items = [];
+
+        async function loadGallery() {
+            const MAX_RETRIES = 3;
+            let files = [];
+
+            for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
+                try {
+                    const res = await fetch(`${SUPABASE_URL}/storage/v1/object/list/${BUCKET_NAME}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'apikey': SUPABASE_ANON_KEY,
+                            'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+                        },
+                        body: JSON.stringify({ prefix: '', limit: 200, offset: 0, sortBy: { column: 'name', order: 'asc' } })
+                    });
+                    if (res.ok) files = await res.json();
+                    if (Array.isArray(files) && files.length > 0) break;
+                } catch (e) { console.warn('Gallery fetch attempt', attempt, e); }
+                if (attempt < MAX_RETRIES) await new Promise(r => setTimeout(r, 1500));
+            }
+
+            items = (files || [])
+                .filter(f => f.name && getFileType(f.name))
+                .map(f => ({ name: f.name, type: getFileType(f.name), url: storageUrl(f.name) }));
+
+            if (items.length === 0) {
+                grid.innerHTML = '<div class="gallery-empty"><div style="font-size:2.5rem; margin-bottom:12px;">🏗️</div><div style="font-size:1rem; color:#94a3b8;">Portfolio coming soon</div></div>';
+                return;
+            }
+
+            grid.innerHTML = items.map((item, i) => {
+                const isVideo = item.type === 'video';
+                const media = isVideo
+                    ? `<video src="${item.url}" preload="metadata" muted></video>`
+                    : `<img src="${item.url}" alt="" loading="lazy">`;
+                const badge = isVideo
+                    ? `<div class="play-badge"><div><svg width="22" height="22" viewBox="0 0 24 24" fill="#fff"><polygon points="8,5 19,12 8,19"/></svg></div></div>`
+                    : '';
+                return `<div class="gallery-card" data-index="${i}">${media}${badge}</div>`;
+            }).join('');
+
+            grid.querySelectorAll('.gallery-card').forEach(el => {
+                el.addEventListener('click', () => openLightbox(parseInt(el.dataset.index)));
+            });
+        }
+
+        function openLightbox(index) {
+            currentIdx = index;
+            renderLB();
+            lightbox.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            lightbox.style.display = 'none';
+            document.body.style.overflow = '';
+            const v = lbContent.querySelector('video');
+            if (v) v.pause();
+            lbContent.innerHTML = '';
+        }
+
+        function renderLB() {
+            const item = items[currentIdx];
+            if (!item) return;
+            if (item.type === 'video') {
+                lbContent.innerHTML = `<video src="${item.url}" controls autoplay style="max-width:90vw; max-height:80vh; border-radius:8px; box-shadow:0 20px 60px rgba(0,0,0,0.5); outline:none; background:#000;">Your browser does not support the video tag.</video>`;
+            } else {
+                lbContent.innerHTML = `<img src="${item.url}" style="max-width:90vw; max-height:80vh; border-radius:8px; box-shadow:0 20px 60px rgba(0,0,0,0.5); object-fit:contain;" alt="">`;
+            }
+        }
+
+        function nav(dir) {
+            const v = lbContent.querySelector('video');
+            if (v) v.pause();
+            currentIdx = (currentIdx + dir + items.length) % items.length;
+            renderLB();
+        }
+
+        if (lightbox) {
+            document.getElementById('lightboxClose').addEventListener('click', (e) => { e.stopPropagation(); closeLightbox(); });
+            document.getElementById('lightboxPrev').addEventListener('click', (e) => { e.stopPropagation(); nav(-1); });
+            document.getElementById('lightboxNext').addEventListener('click', (e) => { e.stopPropagation(); nav(1); });
+            lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (lightbox && lightbox.style.display === 'flex') {
+                if (e.key === 'Escape') closeLightbox();
+                if (e.key === 'ArrowLeft') nav(-1);
+                if (e.key === 'ArrowRight') nav(1);
+            }
+        });
+
+        loadGallery();
+    })();
+    </script>
+</body>
+</html>

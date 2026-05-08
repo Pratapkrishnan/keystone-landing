@@ -118,6 +118,25 @@ body {
     color: var(--accent);
 }
 
+.header-nav {
+    display: flex;
+    align-items: center;
+    gap: 2.5rem;
+}
+
+.nav-link {
+    color: var(--text-dim);
+    text-decoration: none;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+    color: var(--accent);
+}
+
 /* Hero Section */
 .hero-content {
     display: flex;
@@ -410,6 +429,8 @@ body {
     .logo-title { font-size: 1.8rem; text-align: center; letter-spacing: 2px; }
     .logo-sub { font-size: 0.7rem; letter-spacing: 4px; margin-top: 0; }
     .btn-secondary { font-size: 0.70rem; padding: 0.6rem 1rem; }
+    .header-nav { gap: 1.5rem; }
+    .nav-link { font-size: 0.7rem; letter-spacing: 1px; }
     
     .hero-content { padding-top: 140px; } /* Offset for stacked header */
     .hero-title { font-size: clamp(2.5rem, 13vw, 4rem); }
