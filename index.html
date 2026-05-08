@@ -120,16 +120,30 @@
             </style>
         </section>
 
-        <!-- Structural Integrity Carousel Placeholder -->
-        <section class="portfolio-carousel" style="padding: 4rem 2rem; background: #000; display: block; clear: both; width: 100%;">
-            <div style="max-width: 1200px; margin: 0 auto; text-align: center;">
-                <h2 style="font-size: 2rem; margin-bottom: 2rem; letter-spacing: 2px;">STRUCTURAL INTEGRITY <span class="accent">PORTFOLIO</span></h2>
-                <div style="display: flex; gap: 16px; overflow-x: auto; padding-bottom: 20px; justify-content: center;">
-                    <!-- Placeholder boxes until drive links are provided -->
-                    <div style="min-width: 300px; height: 200px; background: #1e293b; border-radius: 8px; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255,42,0,0.2); color: #fff;">Awaiting Drive Link 1</div>
+        <!-- Structural Integrity Portfolio — Photo + Video Gallery -->
+        <section class="portfolio-carousel" id="portfolio-section" style="padding: 5rem 2rem; background: #000; display: block; clear: both; width: 100%; border-top: 1px solid rgba(255,255,255,0.04);">
+            <div style="max-width: 1400px; margin: 0 auto;">
+                <h2 style="font-size: 2rem; margin-bottom: 0.5rem; letter-spacing: 2px; text-align: center;">STRUCTURAL INTEGRITY <span class="accent">PORTFOLIO</span></h2>
+                <p style="text-align: center; color: #6b7280; font-size: 0.9rem; margin-bottom: 2.5rem; letter-spacing: 0.5px;">Click to view • Videos auto-play on selection</p>
+                
+                <div id="portfolioGrid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px;">
+                    <!-- Populated by JS from PORTFOLIO_MEDIA config -->
+                    <div style="grid-column: 1 / -1; text-align: center; padding: 60px 20px; color: #4b5563;">
+                        <i style="font-size: 2rem; margin-bottom: 8px; display: block;">📁</i>
+                        Loading portfolio...
+                    </div>
                 </div>
             </div>
         </section>
+
+        <!-- Portfolio Lightbox -->
+        <div id="portfolioLightbox" style="display:none; position:fixed; inset:0; z-index:10000; background:rgba(0,0,0,0.95); backdrop-filter:blur(20px); align-items:center; justify-content:center; cursor:pointer;">
+            <button id="lightboxClose" style="position:absolute; top:20px; right:24px; background:none; border:none; color:#fff; font-size:2rem; cursor:pointer; z-index:10001; width:44px; height:44px; display:flex; align-items:center; justify-content:center; border-radius:50%; background:rgba(255,255,255,0.1); transition:background 0.2s;">&times;</button>
+            <button id="lightboxPrev" style="position:absolute; left:16px; top:50%; transform:translateY(-50%); background:rgba(255,255,255,0.08); border:none; color:#fff; font-size:1.5rem; cursor:pointer; width:48px; height:48px; border-radius:50%; display:flex; align-items:center; justify-content:center; transition:background 0.2s;">&#8249;</button>
+            <button id="lightboxNext" style="position:absolute; right:16px; top:50%; transform:translateY(-50%); background:rgba(255,255,255,0.08); border:none; color:#fff; font-size:1.5rem; cursor:pointer; width:48px; height:48px; border-radius:50%; display:flex; align-items:center; justify-content:center; transition:background 0.2s;">&#8250;</button>
+            <div id="lightboxContent" style="max-width:90vw; max-height:85vh; display:flex; align-items:center; justify-content:center;"></div>
+            <div id="lightboxCaption" style="position:absolute; bottom:24px; left:50%; transform:translateX(-50%); color:#94a3b8; font-size:0.85rem; text-align:center; max-width:600px; letter-spacing:0.5px;"></div>
+        </div>
         
         <footer class="footer">
             <div class="footer-links">
