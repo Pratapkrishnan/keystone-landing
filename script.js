@@ -182,10 +182,9 @@ document.addEventListener('DOMContentLoaded', () => {
         return null;
     }
 
-    const grid = document.getElementById('portfolioGrid');
+    const grid = document.getElementById('carouselTrack');
     const lightbox = document.getElementById('portfolioLightbox');
     const lbContent = document.getElementById('lightboxContent');
-    const lbCaption = document.getElementById('lightboxCaption');
     let currentLbIndex = 0;
     let portfolioItems = []; // populated from Supabase
 
@@ -207,12 +206,11 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!grid) return;
         const section = document.getElementById('portfolio-section');
         const MAX_RETRIES = 3;
-        const RETRY_DELAY = 1500; // ms
+        const RETRY_DELAY = 1500;
 
         try {
             let files = [];
 
-            // Retry up to 3 times — Supabase storage can return empty on cold starts
             for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
                 files = await fetchPortfolioFiles();
                 if (Array.isArray(files) && files.length > 0) break;
@@ -221,79 +219,53 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
 
-            // Filter to images and videos only
             portfolioItems = (files || [])
                 .filter(f => f.name && getFileType(f.name))
                 .map(f => ({
                     name: f.name,
                     type: getFileType(f.name),
-                    url: storageUrl(f.name),
-                    caption: fileToCaption(f.name)
+                    url: storageUrl(f.name)
                 }));
 
-            // Hide section entirely if no media files exist after all retries
             if (portfolioItems.length === 0) {
                 if (section) section.style.display = 'none';
                 return;
             }
 
-            renderPortfolioGrid();
+            renderCarousel();
         } catch (err) {
             console.warn('Portfolio load error:', err);
             if (section) section.style.display = 'none';
         }
     }
 
-    function renderPortfolioGrid() {
-        if (!grid) return;
+    function renderCarousel() {
+        if (!grid || portfolioItems.length === 0) return;
 
-        if (portfolioItems.length === 0) {
-            grid.innerHTML = `
-                <div style="grid-column: 1 / -1; text-align: center; padding: 60px 20px; color: #4b5563;">
-                    <div style="font-size: 2.5rem; margin-bottom: 12px;">🏗️</div>
-                    <div style="font-size: 1rem; font-weight: 600; color: #94a3b8; margin-bottom: 6px;">Portfolio Coming Soon</div>
-                    <div style="font-size: 0.85rem;">High-resolution project photos and construction timelapses</div>
-                </div>`;
-            return;
-        }
-
-        grid.innerHTML = portfolioItems.map((item, i) => {
+        // Build carousel items
+        const buildItem = (item, i) => {
             const isVideo = item.type === 'video';
-            // For video thumbnails, we show a poster frame or a styled placeholder
-            const thumbContent = isVideo
-                ? `<video src="${item.url}" preload="metadata" style="width:100%; height:100%; object-fit:cover; pointer-events:none;" muted></video>`
-                : `<img src="${item.url}" alt="${item.caption}" loading="lazy" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;">`;
+            const media = isVideo
+                ? `<video src="${item.url}" preload="metadata" muted></video>`
+                : `<img src="${item.url}" alt="" loading="lazy">`;
 
-            return `
-                <div class="portfolio-item" data-index="${i}" style="position:relative; aspect-ratio:3/2; border-radius:10px; overflow:hidden; cursor:pointer; border:1px solid rgba(255,255,255,0.06); transition:transform 0.3s ease, box-shadow 0.3s ease; background:#111;">
-                    ${thumbContent}
-                    ${isVideo ? `
-                        <div class="play-overlay" style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,0.35); transition:background 0.3s;">
-                            <div style="width:56px; height:56px; border-radius:50%; background:rgba(197,160,89,0.9); display:flex; align-items:center; justify-content:center; box-shadow:0 4px 20px rgba(0,0,0,0.4); transition:transform 0.2s;">
-                                <svg width="22" height="22" viewBox="0 0 24 24" fill="#fff"><polygon points="8,5 19,12 8,19"/></svg>
-                            </div>
-                        </div>
-                    ` : ''}
-                    ${isVideo ? `<div style="position:absolute; bottom:0; left:0; right:0; padding:10px 14px; background:linear-gradient(transparent, rgba(0,0,0,0.7)); pointer-events:none; text-align:right;">
-                        <span style="font-size:0.65rem; color:#C5A059; font-weight:600;">▶ VIDEO</span>
-                    </div>` : ''}
-                </div>`;
-        }).join('');
+            const playBadge = isVideo
+                ? `<div class="play-badge"><div><svg width="20" height="20" viewBox="0 0 24 24" fill="#fff"><polygon points="8,5 19,12 8,19"/></svg></div></div>`
+                : '';
 
-        // Hover effects
-        grid.querySelectorAll('.portfolio-item').forEach(el => {
-            el.addEventListener('mouseenter', () => {
-                el.style.transform = 'scale(1.03)';
-                el.style.boxShadow = '0 12px 40px rgba(197,160,89,0.15)';
-                const img = el.querySelector('img');
-                if (img) img.style.transform = 'scale(1.08)';
-            });
-            el.addEventListener('mouseleave', () => {
-                el.style.transform = 'scale(1)';
-                el.style.boxShadow = 'none';
-                const img = el.querySelector('img');
-                if (img) img.style.transform = 'scale(1)';
-            });
+            return `<div class="carousel-item" data-index="${i}">${media}${playBadge}</div>`;
+        };
+
+        // Duplicate items for seamless infinite scroll
+        const itemsHTML = portfolioItems.map((item, i) => buildItem(item, i)).join('');
+        grid.innerHTML = itemsHTML + itemsHTML;
+
+        // Adjust scroll speed based on item count (more items = slower)
+        const duration = Math.max(30, portfolioItems.length * 4);
+        grid.style.animationDuration = `${duration}s`;
+
+        // Click to open lightbox
+        grid.querySelectorAll('.carousel-item').forEach(el => {
             el.addEventListener('click', () => {
                 openLightbox(parseInt(el.dataset.index));
             });
@@ -312,7 +284,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!lightbox) return;
         lightbox.style.display = 'none';
         document.body.style.overflow = '';
-        // Stop any playing video
         const vid = lbContent.querySelector('video');
         if (vid) vid.pause();
         lbContent.innerHTML = '';
@@ -332,14 +303,11 @@ document.addEventListener('DOMContentLoaded', () => {
             lbContent.innerHTML = `
                 <img src="${item.url}" 
                     style="max-width:90vw; max-height:80vh; border-radius:8px; box-shadow:0 20px 60px rgba(0,0,0,0.5); object-fit:contain;" 
-                    alt="${item.caption}">`;
+                    alt="">`;
         }
-
-        lbCaption.textContent = `${currentLbIndex + 1} / ${portfolioItems.length}`;
     }
 
     function lightboxNav(direction) {
-        // Stop current video if playing
         const vid = lbContent.querySelector('video');
         if (vid) vid.pause();
         currentLbIndex = (currentLbIndex + direction + portfolioItems.length) % portfolioItems.length;
@@ -363,7 +331,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Initialize gallery — fetch from Supabase Storage
+    // Initialize gallery
     loadPortfolio();
 
 });
