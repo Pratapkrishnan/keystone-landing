@@ -262,10 +262,9 @@ document.addEventListener('DOMContentLoaded', () => {
                             </div>
                         </div>
                     ` : ''}
-                    <div style="position:absolute; bottom:0; left:0; right:0; padding:10px 14px; background:linear-gradient(transparent, rgba(0,0,0,0.85)); pointer-events:none;">
-                        <span style="font-size:0.75rem; color:#e2e8f0; font-weight:500;">${item.caption}</span>
-                        ${isVideo ? '<span style="float:right; font-size:0.65rem; color:#C5A059; font-weight:600;">▶ VIDEO</span>' : ''}
-                    </div>
+                    ${isVideo ? `<div style="position:absolute; bottom:0; left:0; right:0; padding:10px 14px; background:linear-gradient(transparent, rgba(0,0,0,0.7)); pointer-events:none; text-align:right;">
+                        <span style="font-size:0.65rem; color:#C5A059; font-weight:600;">▶ VIDEO</span>
+                    </div>` : ''}
                 </div>`;
         }).join('');
 
@@ -324,7 +323,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     alt="${item.caption}">`;
         }
 
-        lbCaption.textContent = `${item.caption}  ·  ${currentLbIndex + 1} / ${portfolioItems.length}`;
+        lbCaption.textContent = `${currentLbIndex + 1} / ${portfolioItems.length}`;
     }
 
     function lightboxNav(direction) {
